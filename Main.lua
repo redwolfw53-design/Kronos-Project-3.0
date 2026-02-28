@@ -1,6 +1,6 @@
 --[[ 
-    ⚡ KRONOS RED PROJECT V3.0 | THE GOD VERSION
-    Dono: red_wolf12370 | Somente o Dono pula a Key
+    ⚡ KRONOS RED PROJECT V3.0 | STABLE & POWERFUL
+    Dono: red_wolf12370 | Corrigido: Aimbot e Hitbox
 --]]
 
 local Player = game.Players.LocalPlayer
@@ -10,7 +10,7 @@ local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "⚡ KRONOS RED V3.0",
-   LoadingTitle = "Carregando Scripts de Elite...",
+   LoadingTitle = "Carregando KRONOS de Elite...",
    LoadingSubtitle = "by red_wolf12370",
    Theme = "Ocean",
    KeySystem = not IsOwner,
@@ -26,42 +26,64 @@ local Window = Rayfield:CreateWindow({
 local RedPVP = Window:CreateTab("⚔️ kronos_pvp")
 local RedVisuals = Window:CreateTab("👁️ kronos_view")
 local RedMoney = Window:CreateTab("💰 kronos_money")
-local RedUniversal = Window:CreateTab("🌀 kronos_universal")
 
--- // 1. SEÇÃO PVP (SCRIPTS FAMOSOS QUE ABREM INTERFACE) //
-RedPVP:CreateSection("Combate de Elite")
+-- // 1. PVP (USANDO SCRIPTS DIRETOS - SEM FALHAS) //
+RedPVP:CreateSection("Mira & Combate Universal")
 
 RedPVP:CreateButton({
-   Name = "kronos_aimbot | Aimbot & Hitbox (Solaris Hub)",
+   Name = "kronos_aimbot | Mira Automática (Exunys V2)",
    Callback = function()
-      -- Este abre um menu próprio com Aimbot e Hitbox funcional
-      pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/toasty-dev/Solaris/main/Solaris.lua"))() end)
-      Rayfield:Notify({Title = "KRONOS", Content = "Iniciando Solaris Hub...", Duration = 3})
+      -- O Aimbot mais estável do mundo, roda direto de fundo
+      pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V2/main/Resources/Scripts/Aimbot_V2.lua"))() end)
+      Rayfield:Notify({Title = "KRONOS", Content = "Aimbot Ativado com Sucesso!", Duration = 3})
    end,
 })
 
 RedPVP:CreateButton({
-   Name = "kronos_combat | Silent Aim & PVP (OwlHub)",
+   Name = "kronos_hitbox | Aumentar Hitbox (Universal)",
    Callback = function()
-      -- O OwlHub é o mais famoso para tiro certeiro
+      -- Hitbox direta que expande o corpo dos inimigos na hora
+      _G.HeadSize = 20
+      _G.Disabled = false
+      pcall(function()
+         game:GetService('RunService').RenderStepped:connect(function()
+            if _G.Disabled then return end
+            for i,v in pairs(game:GetService('Players'):GetPlayers()) do
+               if v.Name ~= game:GetService('Players').LocalPlayer.Name then
+                  pcall(function()
+                     v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
+                     v.Character.HumanoidRootPart.Transparency = 0.7
+                     v.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really blue")
+                     v.Character.HumanoidRootPart.CanCollide = false
+                  end)
+               end
+            end
+         end)
+      end)
+      Rayfield:Notify({Title = "KRONOS", Content = "Hitbox Gigante Ativada!", Duration = 3})
+   end,
+})
+
+RedPVP:CreateButton({
+   Name = "kronos_silent | Tiro Certeiro (RayCodex)",
+   Callback = function()
+      pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/skatbr/Luau-Scripts/main/Silent%20Aim"))() end)
+      Rayfield:Notify({Title = "KRONOS", Content = "Silent Aim Ativado!", Duration = 3})
+   end,
+})
+
+-- // 2. VISUALS (OWL HUB COMO VIEW) //
+RedVisuals:CreateSection("ESP & Visão")
+
+RedVisuals:CreateButton({
+   Name = "kronos_view | Ativar ESP/Wallhack (OwlHub)",
+   Callback = function()
+      -- O OwlHub costuma ser o mais compatível com Delta
       pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))() end)
    end,
 })
 
--- // 2. SEÇÃO VISUALS (ESP QUE REALMENTE APARECE) //
-RedVisuals:CreateSection("Espionagem Visual")
-
-RedVisuals:CreateButton({
-   Name = "kronos_esp | Ver tudo pelas paredes (EZ Hub)",
-   Callback = function()
-      -- EZ Hub tem o melhor ESP colorido que aparece na hora
-      pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/debug101/EZ-Hub/main/EZ_Hub.lua"))() end)
-   end,
-})
-
--- // 3. SEÇÃO MONEY (SEU NOME, SUA MARCA) //
-RedMoney:CreateSection("Auto-Farm Dinheiro")
-
+-- // 3. MONEY (SISTEMA KRONOS) //
 RedMoney:CreateButton({
    Name = "kronos_money | Iniciar Farm RED",
    Callback = function()
@@ -70,21 +92,11 @@ RedMoney:CreateButton({
    end,
 })
 
--- // 4. UNIVERSAL (+75 FUNÇÕES COM ADMIN) //
-RedUniversal:CreateButton({
-   Name = "kronos_admin | +100 Comandos (Infinite Yield)",
-   Callback = function()
-      pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end)
-   end,
-})
-
--- // 👑 ABA EXCLUSIVA: SÓ VOCÊ (red_wolf12370) PODE VER //
+-- // 👑 MENU ADM EXCLUSIVO //
 if IsOwner then
     local OwnerTab = Window:CreateTab("👑 KRONOS_OWNER")
-    OwnerTab:CreateSection("Controle Total")
-    
     OwnerTab:CreateButton({
-       Name = "kronos_kickall | Expulsar todos do servidor",
+       Name = "KICK ALL | Expulsar todos",
        Callback = function()
           for _, v in pairs(game.Players:GetPlayers()) do
              if v ~= Player then v:Kick("KRONOS RED: O Dono encerrou o servidor.") end
@@ -92,9 +104,3 @@ if IsOwner then
        end,
     })
 end
-
-Rayfield:Notify({
-   Title = "KRONOS RED V3.0",
-   Content = IsOwner and "Dono Detectado! Acesso ADM Liberado." or "Script Carregado!",
-   Duration = 5,
-})
