@@ -1,6 +1,6 @@
 --[[ 
-    ⚡ KRONOS RED PROJECT V3.0 | FINAL BOSS EDITION
-    Dono: red_wolf12370 | 100+ Funções + Intro Grafite 15s
+    ⚡ KRONOS RED PROJECT V3.0 | DARK GRAFITE EDITION
+    Dono: red_wolf12370 | Intro: 15 Segundos Estilo Grafite
 --]]
 
 local Player = game.Players.LocalPlayer
@@ -11,7 +11,7 @@ local IsOwner = (Player.Name == "red_wolf12370" or Player.UserId == 6046467475)
 _G.AimbotEnabled = false
 _G.HitboxEnabled = false
 
--- // 🎨 FUNÇÃO DA INTRO GRAFITE PROFISSIONAL (15 SEGUNDOS) //
+-- // 🎨 INTRO GRAFITE PROFISSIONAL (15 SEGUNDOS) //
 local function PlayIntro()
     local ScreenGui = Instance.new("ScreenGui")
     local MainFrame = Instance.new("Frame")
@@ -24,7 +24,7 @@ local function PlayIntro()
     
     MainFrame.Name = "IntroFrame"
     MainFrame.Parent = ScreenGui
-    MainFrame.BackgroundColor3 = Color3.fromRGB(10, 10, 10)
+    MainFrame.BackgroundColor3 = Color3.fromRGB(5, 5, 5) -- Fundo Dark
     MainFrame.BackgroundTransparency = 1
     MainFrame.Size = UDim2.new(1, 0, 1, 0)
     
@@ -34,7 +34,7 @@ local function PlayIntro()
     UIShadow.Size = UDim2.new(0, 0, 0, 0)
     UIShadow.AnchorPoint = Vector2.new(0.5, 0.5)
     UIShadow.Image = "rbxassetid://1316045217" -- Efeito Spray/Fumaça
-    UIShadow.ImageColor3 = Color3.fromRGB(138, 43, 226) -- Roxo
+    UIShadow.ImageColor3 = Color3.fromRGB(138, 43, 226) -- Roxo Neon
     UIShadow.ImageTransparency = 1
 
     local function SetupText(obj)
@@ -42,16 +42,16 @@ local function PlayIntro()
         obj.BackgroundTransparency = 1
         obj.Position = UDim2.new(0.5, 0, 0.5, 0)
         obj.Size = UDim2.new(0, 500, 0, 150)
-        obj.Font = Enum.Font.Creepster -- Estilo Grafite/Pichação
+        obj.Font = Enum.Font.Creepster -- Estilo Grafite
         obj.Text = "KRONOS PT"
-        obj.TextSize = 85
+        obj.TextSize = 90
         obj.TextTransparency = 1
         obj.AnchorPoint = Vector2.new(0.5, 0.5)
     end
 
     SetupText(TextOutline)
     TextOutline.TextColor3 = Color3.fromRGB(0, 0, 0)
-    TextOutline.Position = UDim2.new(0.5, 4, 0.5, 4) -- Sombra do Grafite
+    TextOutline.Position = UDim2.new(0.5, 5, 0.5, 5) -- Sombra foda
 
     SetupText(TextLabel)
     TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -59,18 +59,18 @@ local function PlayIntro()
     UIGradient.Color = ColorSequence.new{
         ColorSequenceKeypoint.new(0, Color3.fromRGB(138, 43, 226)), -- Roxo
         ColorSequenceKeypoint.new(0.5, Color3.fromRGB(0, 191, 255)), -- Azul
-        ColorSequenceKeypoint.new(1, Color3.fromRGB(0, 0, 0)) -- Preto
+        ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20)) -- Dark
     }
     UIGradient.Rotation = 45
     UIGradient.Parent = TextLabel
 
     local TS = game:GetService("TweenService")
-    TS:Create(MainFrame, TweenInfo.new(1.5), {BackgroundTransparency = 0.1}):Play()
-    TS:Create(UIShadow, TweenInfo.new(3), {ImageTransparency = 0.4, Size = UDim2.new(1.2, 0, 1.2, 0)}):Play()
+    TS:Create(MainFrame, TweenInfo.new(1.5), {BackgroundTransparency = 0.05}):Play()
+    TS:Create(UIShadow, TweenInfo.new(4), {ImageTransparency = 0.3, Size = UDim2.new(1.3, 0, 1.3, 0)}):Play()
     TS:Create(TextLabel, TweenInfo.new(2.5), {TextTransparency = 0}):Play()
-    TS:Create(TextOutline, TweenInfo.new(2.5), {TextTransparency = 0.2}):Play()
+    TS:Create(TextOutline, TweenInfo.new(2.5), {TextTransparency = 0.1}):Play()
     
-    task.wait(12) -- Exibição central
+    task.wait(12) -- Segura o visual foda por 12s
     
     TS:Create(TextLabel, TweenInfo.new(1.5), {TextTransparency = 1}):Play()
     TS:Create(TextOutline, TweenInfo.new(1.5), {TextTransparency = 1}):Play()
@@ -81,15 +81,15 @@ local function PlayIntro()
     ScreenGui:Destroy()
 end
 
--- Inicia a Animação de Entrada
+-- Inicia a Intro Profissional
 PlayIntro()
 
--- // 🛠️ CARREGAMENTO DO MENU PRINCIPAL //
+-- // 🛠️ MENU PRINCIPAL RAYFIELD //
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "⚡ KRONOS RED V3.0",
-   LoadingTitle = "KRONOS PT | 100+ FUNÇÕES",
+   LoadingTitle = "INICIANDO KRONOS PT...",
    LoadingSubtitle = "by red_wolf12370",
    Theme = "Ocean",
    KeySystem = not IsOwner,
@@ -106,16 +106,14 @@ local RedPVP = Window:CreateTab("⚔️ kronos_pvp")
 local RedEBDelta = Window:CreateTab("🌀 eb_delta")
 local RedAdmin = Window:CreateTab("👑 kronos_adm")
 
--- // 1. PVP (AIMBOT CORRIGIDO COM TOGGLE) //
-RedPVP:CreateSection("Combate & Mira")
-
+-- PVP (AIMBOT E HITBOX)
+RedPVP:CreateSection("Mira & Combate")
 RedPVP:CreateToggle({
-   Name = "kronos_aimbot | Ativar Mira Automática",
+   Name = "kronos_aimbot | Mira Automática",
    CurrentValue = false,
    Callback = function(Value)
       _G.AimbotEnabled = Value
       if Value then
-         Rayfield:Notify({Title = "KRONOS", Content = "Aimbot Ligado!", Duration = 2})
          spawn(function()
             while _G.AimbotEnabled do
                local Target = nil
@@ -125,10 +123,7 @@ RedPVP:CreateToggle({
                      local ScreenPos, OnScreen = game.Workspace.CurrentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
                      if OnScreen then
                         local MouseDist = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(ScreenPos.X, ScreenPos.Y)).Magnitude
-                        if MouseDist < Dist then
-                           Target = v
-                           Dist = MouseDist
-                        end
+                        if MouseDist < Dist then Target = v Dist = MouseDist end
                      end
                   end
                end
@@ -164,36 +159,26 @@ RedPVP:CreateToggle({
    end,
 })
 
--- // 2. SEÇÃO EB DELTA (TOTALMENTE KRONOS STYLE) //
-RedEBDelta:CreateSection("Auto-Farm & Raids")
-
+-- EB DELTA (FARM E RAIDS)
+RedEBDelta:CreateSection("Auto-Farm EB Delta")
 RedEBDelta:CreateButton({
    Name = "kronos_money | Farm de Dinheiro",
    Callback = function()
-      Rayfield:Notify({Title = "KRONOS EB", Content = "Iniciando Farm...", Duration = 3})
       loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/KHAOS-MONEY-V1/main/Script.md"))()
    end,
 })
 
 RedEBDelta:CreateButton({
-   Name = "kronos_raid | Iniciar Auto-Raid / Dungeon",
+   Name = "kronos_raid | Auto-Raid / Dungeon",
    Callback = function()
       loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/Trink-Menu/main/Script.md"))()
    end,
 })
 
-RedEBDelta:CreateButton({
-   Name = "kronos_parkur | Parkour Speed Master",
-   Callback = function()
-      loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/PEDRINHUU-PARKUR/main/Script.md"))()
-   end,
-})
-
--- // 3. ABA ADM (100+ FUNÇÕES) //
-RedAdmin:CreateSection("Comandos de Administrador")
-
+-- ADMIN (100+ FUNÇÕES)
+RedAdmin:CreateSection("Painel Admin")
 RedAdmin:CreateButton({
-   Name = "ABRIR PAINEL DE COMANDOS (200+ FUNÇÕES)",
+   Name = "ABRIR 100+ FUNÇÕES (Infinite Yield)",
    Callback = function()
       loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
    end,
@@ -206,9 +191,6 @@ RedAdmin:CreateSlider({
    CurrentValue = 16,
    Callback = function(V) Player.Character.Humanoid.WalkSpeed = V end,
 })
-
-RedAdmin:CreateButton({Name = "kronos_fly | Voar", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua"))() end})
-RedAdmin:CreateButton({Name = "kronos_esp | Ver Players", Callback = function() loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/EspOnly'))() end})
 
 if IsOwner then
    RedAdmin:CreateSection("👑 PAINEL DO DONO")
