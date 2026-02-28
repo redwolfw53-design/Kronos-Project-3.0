@@ -1,15 +1,16 @@
+
 --[[ 
-    😈 KRONOS PT V22.0 | THE GENGAR GHOST (ANTI-DAMAGE)
+    😈 KRONOS PT V23.0 | GENGAR SHADOW (FIX TOTAL)
     Dono: red_wolf12370 
-    Tema: Gengar Shadow (Roxo & Preto)
-    Chave: KRONOS
+    Tema: Purple Shadow
+    Key: KRONOS
 --]]
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "😈 KRONOS PT V22.0 | GENGAR GHOST",
-   LoadingTitle = "BYPASSING ALL SERVER CHECKS...",
+   Name = "😈 KRONOS PT V23.0 | PURGATORY FIX",
+   LoadingTitle = "SCANNEANDO MAPA E NPCs...",
    Theme = "Purple",
    KeySystem = true, 
    KeySettings = {
@@ -18,101 +19,98 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
-_G.AutoFarmTotal = false
+_G.AutoFarm = false
 _G.GodMode = false
+_G.Distance = 8
 
--- // FUNÇÃO DE BUSCA DE ALVOS //
-local function GetTargets()
-    local Enemies = {}
-    for _, v in pairs(workspace:GetDescendants()) do
+-- // LOCALIZADOR UNIVERSAL (PEGA ATÉ NPC ESCONDIDO) //
+local function GetClosestNPC()
+    local Target = nil
+    local Distance = math.huge
+    for _, v in pairs(game:GetService("Workspace"):GetDescendants()) do
         if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Health > 0 then
-            if not game.Players:GetPlayerFromCharacter(v.Parent) then
-                table.insert(Enemies, v.Parent)
+            if not game.Players:GetPlayerFromCharacter(v.Parent) and v.Parent ~= game.Players.LocalPlayer.Character then
+                local Mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Parent.HumanoidRootPart.Position).Magnitude
+                if Mag < Distance then
+                    Distance = Mag
+                    Target = v.Parent
+                end
             end
         end
     end
-    return Enemies
+    return Target
 end
 
--- // 🌀 ABA: FARM 100% AUTOMÁTICO //
-local TabAuto = Window:CreateTab("🌀 Full Auto")
+-- // 🌀 ABA: AUTO FARM SUPREMO //
+local TabFarm = Window:CreateTab("🌀 Shadow Farm")
 
-TabAuto:CreateToggle({
-   Name = "AUTO-FARM 100% (Teleport + Kill)",
+TabFarm:CreateToggle({
+   Name = "AUTO FARM 100% (Modo Caçador)",
    CurrentValue = false,
    Callback = function(Value)
-      _G.AutoFarmTotal = Value
+      _G.AutoFarm = Value
       spawn(function()
-         while _G.AutoFarmTotal do
+         while _G.AutoFarm do
             pcall(function()
-               local targets = GetTargets()
-               for _, target in pairs(targets) do
-                  if not _G.AutoFarmTotal then break end
+               local npc = GetClosestNPC()
+               if npc then
+                  -- Teleporte de Precisão (Tween)
+                  local char = game.Players.LocalPlayer.Character
+                  local tool = char:FindFirstChildOfClass("Tool")
                   
-                  repeat
-                     task.wait()
-                     local tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
-                     if tool then
-                        tool:Activate()
-                        -- Cola no bicho (Em cima para não cair no void)
-                        game.Players.LocalPlayer.Character:PivotTo(target.HumanoidRootPart.CFrame * CFrame.new(0, 7, 0))
-                        
-                        -- DANO FORÇADO (Multi-Hit Bypass)
-                        for i = 1, 10 do
-                           firetouchinterest(tool.Handle, target.HumanoidRootPart, 0)
-                           firetouchinterest(tool.Handle, target.HumanoidRootPart, 1)
-                        end
-                     end
-                  until not _G.AutoFarmTotal or target.Humanoid.Health <= 0
+                  -- Fica em cima do bicho pra não cair no chão falso
+                  char.HumanoidRootPart.CFrame = npc.HumanoidRootPart.CFrame * CFrame.new(0, _G.Distance, 0) * CFrame.Angles(math.rad(-90), 0, 0)
+                  
+                  if tool then
+                     tool:Activate() -- Ataca
+                     -- Força o dano no bicho
+                     firetouchinterest(tool.Handle, npc.HumanoidRootPart, 0)
+                     firetouchinterest(tool.Handle, npc.HumanoidRootPart, 1)
+                  end
                end
             end)
-            task.wait()
+            task.wait(0.1)
          end
       end)
    end,
 })
 
--- // 🛡️ ABA: IMORTALIDADE GENGAR //
+-- // 🛡️ ABA: GOD MODE & BYPASS //
 local TabGod = Window:CreateTab("🛡️ God Mode")
 
-TabGod:CreateToggle({
-   Name = "MODO FANTASMA (Não toma dano)",
-   CurrentValue = false,
-   Callback = function(Value)
-      _G.GodMode = Value
-      if Value then
-         -- Remove a capacidade do servidor te dar dano
-         game.Players.LocalPlayer.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
-         -- Deleta as partes que os NPCs usam pra te detectar
-         if game.Players.LocalPlayer.Character:FindFirstChild("LowerTorso") then
-            game.Players.LocalPlayer.Character.LowerTorso.CanTouch = false
-            game.Players.LocalPlayer.Character.UpperTorso.CanTouch = false
-         end
-         Rayfield:Notify({Title = "GENGAR GHOST", Content = "Você agora é intocável!", Duration = 5})
+TabGod:CreateButton({
+   Name = "ATIVAR IMORTALIDADE (Anti-Dano)",
+   Callback = function()
+      _G.GodMode = true
+      local lp = game.Players.LocalPlayer
+      if lp.Character:FindFirstChild("Humanoid") then
+         lp.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
+         -- Deleta as partes que recebem dano (No-Hitbox)
+         if lp.Character:FindFirstChild("LowerTorso") then lp.Character.LowerTorso:Destroy() end
+         Rayfield:Notify({Title = "SISTEMA", Content = "God Mode Ativado!", Duration = 5})
       end
    end,
 })
 
--- // 🎭 ABA: EXTRAS ÚTEIS //
+-- // 🎭 ABA: EXTRAS //
 local TabExtra = Window:CreateTab("🎭 Funções")
 
-TabExtra:CreateButton({
-   Name = "Velocidade de Flash (150)",
-   Callback = function() game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150 end,
+TabExtra:CreateSlider({
+   Name = "Ajustar Altura do Farm",
+   Range = {5, 20},
+   Increment = 1,
+   CurrentValue = 8,
+   Callback = function(v) _G.Distance = v end,
 })
 
 TabExtra:CreateButton({
-   Name = "Pulo Infinito",
-   Callback = function()
-      game:GetService("UserInputService").JumpRequest:Connect(function()
-         game.Players.LocalPlayer.Character.Humanoid:ChangeState("Jumping")
-      end)
-   end,
+   Name = "Velocidade Gengar (150)",
+   Callback = function() game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150 end,
 })
 
 -- // 📜 SALA DE CRÉDITOS //
 local TabCredits = Window:CreateTab("📜 Sala do Gengar")
-TabCredits:CreateLabel("👑 Script por: red_wolf12370")
-TabCredits:CreateParagraph({Title = "MANUAL 100% AUTO", Content = "1. Ligue o MODO FANTASMA primeiro.\n2. Equipe sua arma.\n3. Ligue o AUTO-FARM.\n4. Deixe o celular parado e o script fará tudo."})
+TabCredits:CreateLabel("👑 Script Original: red_wolf12370")
+TabCredits:CreateParagraph({Title = "DICA DE OURO:", Content = "Se o Auto-Farm não mexer, é porque você precisa estar SEGURANDO UMA ARMA na mão antes de ligar o botão."})
 
-Rayfield:Notify({Title = "KRONOS V22 ATIVADO", Content = "A Chave é KRONOS", Duration = 5})
+Rayfield:Notify({Title = "KRONOS V23 FIXED", Content = "Scanner de NPCs Ativo!", Duration = 5})
