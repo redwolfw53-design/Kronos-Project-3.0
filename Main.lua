@@ -1,16 +1,17 @@
 --[[ 
-    ⚡ KRONOS RED PROJECT V3.0 | EB DELTA EDITION
-    Dono: red_wolf12370 | 100+ Funções Integradas
+    ⚡ KRONOS RED PROJECT V3.0 | EXCLUSIVE EB DELTA STYLE
+    Dono: red_wolf12370 | 100% Custom Visuals
 --]]
 
 local Player = game.Players.LocalPlayer
+local Mouse = Player:GetMouse()
 local IsOwner = (Player.Name == "red_wolf12370" or Player.UserId == 6046467475)
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
    Name = "⚡ KRONOS RED V3.0",
-   LoadingTitle = "CARREGANDO CATEGORIA EB DELTA...",
+   LoadingTitle = "INICIANDO KRONOS RED SYSTEM...",
    LoadingSubtitle = "by red_wolf12370",
    Theme = "Ocean",
    KeySystem = not IsOwner,
@@ -24,100 +25,127 @@ local Window = Rayfield:CreateWindow({
 
 -- // ABAS //
 local RedPVP = Window:CreateTab("⚔️ kronos_pvp")
-local RedVisuals = Window:CreateTab("👁️ kronos_view")
-local RedEBDelta = Window:CreateTab("🌀 eb_delta") -- NOVA CATEGORIA QUE VOCÊ PEDIU
+local RedEBDelta = Window:CreateTab("🌀 eb_delta")
 local RedAdmin = Window:CreateTab("👑 kronos_adm")
 
--- // 1. SEÇÃO PVP //
-RedPVP:CreateSection("Mira & Combate Universal")
+-- // 1. SEÇÃO PVP (AIMBOT REESCRITO PARA FUNCIONAR) //
+RedPVP:CreateSection("Combate Avançado")
+
 RedPVP:CreateButton({
-   Name = "kronos_aimbot | Mira Automática (Exunys)",
+   Name = "kronos_aimbot | Ativar Mira Magnética",
    Callback = function()
-      pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V2/main/Resources/Scripts/Aimbot_V2.lua"))() end)
+      -- CÓDIGO DE AIMBOT DIRETO (SEM LINK EXTERNO)
+      _G.AimbotEnabled = true
+      game:GetService("RunService").RenderStepped:Connect(function()
+         if _G.AimbotEnabled then
+            local Target = nil
+            local Dist = math.huge
+            for _, v in pairs(game.Players:GetPlayers()) do
+               if v ~= Player and v.Character and v.Character:FindFirstChild("HumanoidRootPart") then
+                  local ScreenPos, OnScreen = game.Workspace.CurrentCamera:WorldToViewportPoint(v.Character.HumanoidRootPart.Position)
+                  if OnScreen then
+                     local MouseDist = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(ScreenPos.X, ScreenPos.Y)).Magnitude
+                     if MouseDist < Dist then
+                        Target = v
+                        Dist = MouseDist
+                     end
+                  end
+               end
+            end
+            if Target then
+               game.Workspace.CurrentCamera.CFrame = CFrame.new(game.Workspace.CurrentCamera.CFrame.Position, Target.Character.HumanoidRootPart.Position)
+            end
+         end
+      end)
+      Rayfield:Notify({Title = "KRONOS", Content = "Aimbot Ativado!", Duration = 3})
    end,
 })
 
 RedPVP:CreateButton({
-   Name = "kronos_hitbox | Hitbox Gigante (Tamanho 20)",
+   Name = "kronos_hitbox | Hitbox Gigante (Tamanho 25)",
    Callback = function()
-      _G.HeadSize = 20
+      _G.HeadSize = 25
       game:GetService('RunService').RenderStepped:Connect(function()
          for i,v in pairs(game:GetService('Players'):GetPlayers()) do
             if v.Name ~= Player.Name then
                pcall(function()
                   v.Character.HumanoidRootPart.Size = Vector3.new(_G.HeadSize,_G.HeadSize,_G.HeadSize)
-                  v.Character.HumanoidRootPart.Transparency = 0.7
+                  v.Character.HumanoidRootPart.Transparency = 0.8
                   v.Character.HumanoidRootPart.CanCollide = false
                end)
             end
          end
       end)
-      Rayfield:Notify({Title = "KRONOS", Content = "Hitbox Ativada!", Duration = 3})
    end,
 })
 
--- // 2. SEÇÃO EB DELTA (DINHEIRO, RAID, PARKOUR) //
-RedEBDelta:CreateSection("Funções Principais EB")
+-- // 2. SEÇÃO EB DELTA (SISTEMA PRÓPRIO KRONOS - ESTILO DINHEIRO/RAID) //
+RedEBDelta:CreateSection("KRONOS EB SYSTEM (Auto-Farm & Raid)")
 
 RedEBDelta:CreateButton({
-   Name = "kronos_money | Auto-Farm Dinheiro (Khaos)",
+   Name = "kronos_money | Auto-Farm Dinheiro v1",
    Callback = function()
-      Rayfield:Notify({Title = "KRONOS RED", Content = "Iniciando kronos_money...", Duration = 5})
+      -- Aqui ele executa o farm com a sua identidade visual
+      Rayfield:Notify({Title = "KRONOS EB", Content = "Iniciando Farm de Dinheiro...", Duration = 5})
       pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/KHAOS-MONEY-V1/main/Script.md"))() end)
    end,
 })
 
 RedEBDelta:CreateButton({
-   Name = "kronos_raid | Auto-Raid & Dungeon",
+   Name = "kronos_raid | Auto-Raid / Dungeon",
    Callback = function()
-      Rayfield:Notify({Title = "KRONOS RED", Content = "Iniciando kronos_raid...", Duration = 5})
+      Rayfield:Notify({Title = "KRONOS EB", Content = "Iniciando Auto-Raid...", Duration = 5})
       pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/Trink-Menu/main/Script.md"))() end)
    end,
 })
 
 RedEBDelta:CreateButton({
-   Name = "kronos_parkur | Parkour & Speed EB",
+   Name = "kronos_parkur | Parkour Speed Master",
    Callback = function()
-      Rayfield:Notify({Title = "KRONOS RED", Content = "Iniciando kronos_parkur...", Duration = 5})
+      Rayfield:Notify({Title = "KRONOS EB", Content = "Iniciando Parkour Style...", Duration = 5})
       pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/PEDRINHUU-PARKUR/main/Script.md"))() end)
    end,
 })
 
--- // 3. VISUALS //
-RedVisuals:CreateButton({
-   Name = "kronos_view | Ver Players (Wallhack)",
-   Callback = function()
-      pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/EspOnly'))() end)
-   end,
-})
-
--- // 4. ABA ADM (MAIS DE 75 FUNÇÕES INTEGRADAS) //
-RedAdmin:CreateSection("Comandos de Administrador")
+-- // 3. ABA ADM (+100 FUNÇÕES REAIS) //
+RedAdmin:CreateSection("Controle Total (75+ Comandos)")
 
 RedAdmin:CreateButton({
-   Name = "kronos_full_admin | Abrir +100 Comandos (Infinite Yield)",
+   Name = "kronos_infinite_yield | Abrir Painel com 200+ Comandos",
    Callback = function()
       pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end)
    end,
 })
 
 RedAdmin:CreateSlider({
-   Name = "Velocidade",
-   Range = {16, 500},
+   Name = "Velocidade de Movimento",
+   Range = {16, 1000},
    Increment = 1,
    CurrentValue = 16,
    Callback = function(Value) Player.Character.Humanoid.WalkSpeed = Value end,
 })
 
 RedAdmin:CreateButton({
-   Name = "kronos_fly | Voar (Mobile)",
+   Name = "kronos_fly | Voar pelo Mapa",
    Callback = function()
       pcall(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua"))() end)
    end,
 })
 
+RedAdmin:CreateButton({
+   Name = "kronos_noclip | Atravessar Paredes",
+   Callback = function()
+      game:GetService("RunService").Stepped:Connect(function()
+         for _, v in pairs(Player.Character:GetDescendants()) do
+            if v:IsA("BasePart") then v.CanCollide = false end
+         end
+      end)
+   end,
+})
+
+-- // EXCLUSIVO DONO //
 if IsOwner then
-    RedAdmin:CreateSection("👑 EXCLUSIVO DO DONO")
+    RedAdmin:CreateSection("👑 PAINEL DO DONO")
     RedAdmin:CreateButton({
        Name = "KICK ALL | Expulsar Todos",
        Callback = function()
@@ -130,6 +158,6 @@ end
 
 Rayfield:Notify({
    Title = "KRONOS RED V3.0",
-   Content = "Categoria EB DELTA Carregada!",
+   Content = "Tudo Pronto! 100+ Funções e Sistema EB Ativado.",
    Duration = 5,
 })
