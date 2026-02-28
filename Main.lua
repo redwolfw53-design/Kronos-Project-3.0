@@ -1,5 +1,5 @@
 --[[ 
-    😈 KRONOS PT V13.0 | GENGAR MASSACRE (HIT ALL NPCs)
+    😈 KRONOS PT V14.0 | GENGAR APOCALYPSE (FIXED ALL)
     Dono: red_wolf12370 
     Tema: Gengar Shadow (Roxo & Preto)
     Chave: KRONOS
@@ -8,8 +8,8 @@
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "😈 KRONOS PT V13.0 | MASSACRE EDITION",
-   LoadingTitle = "LOADING MASS HIT SYSTEM...",
+   Name = "😈 KRONOS PT V14.0 | APOCALYPSE",
+   LoadingTitle = "BYPASSING PURGATORY PROTECTION...",
    Theme = "Purple",
    KeySystem = true,
    KeySettings = {
@@ -18,70 +18,76 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
--- // CONTROLES DE MASSACRE //
+-- // CONFIGURAÇÕES DO MOTOR //
 _G.MassKill = false
 _G.AutoFarm = false
+_G.Distance = -8 -- Distância debaixo do bicho
 
--- // 🌀 ABA: MASSACRE (DANO EM TODOS) //
+-- // FUNÇÃO DE BUSCA AVANÇADA //
+local function GetEnemies()
+    local Enemies = {}
+    for _, v in pairs(workspace:GetDescendants()) do
+        if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Health > 0 then
+            if not game.Players:GetPlayerFromCharacter(v.Parent) then
+                table.insert(Enemies, v.Parent)
+            end
+        end
+    end
+    return Enemies
+end
+
+-- // 🌀 ABA: MASSACRE TOTAL //
 local TabMass = Window:CreateTab("🌀 Shadow Massacre")
 
-TabMass:CreateSection("Dano Global (Todos os NPCs)")
-
 TabMass:CreateToggle({
-   Name = "Mass Kill: Dano em TODOS os NPCs",
+   Name = "KILL ALL NPCs (Dano em Massa)",
    CurrentValue = false,
    Callback = function(Value)
       _G.MassKill = Value
       spawn(function()
          while _G.MassKill do
             pcall(function()
-               local Tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
-               if Tool then
-                  Tool:Activate() -- Ativa a arma
-                  
-                  -- Varre todos os NPCs do mapa e aplica o dano
-                  for _, v in pairs(workspace:GetDescendants()) do
-                     if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Health > 0 then
-                        local isPlayer = game.Players:GetPlayerFromCharacter(v.Parent)
-                        
-                        if not isPlayer then -- Garante que não vai bater em players
-                           -- Sistema de Dano Remoto (FireTouch em massa)
-                           for _, part in pairs(v.Parent:GetChildren()) do
-                              if part:IsA("BasePart") then
-                                 firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, part, 0)
-                                 firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, part, 1)
-                              end
-                           end
+               local enemies = GetEnemies()
+               local tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
+               
+               if tool then
+                  tool:Activate() -- Ativa a arma
+                  for _, enemy in pairs(enemies) do
+                     -- Força o dano em cada parte do bicho ao mesmo tempo
+                     for _, part in pairs(enemy:GetChildren()) do
+                        if part:IsA("BasePart") then
+                           firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, part, 0)
+                           firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, part, 1)
                         end
                      end
                   end
                end
             end)
-            task.wait(0.1) -- Velocidade do Massacre
+            task.wait(0.01) -- Velocidade máxima de processamento
          end
       end)
    end,
 })
 
-TabMass:CreateSection("Teleporte de Farm")
+-- // 🌀 ABA: AUTO FARM (TELEPORT UNDER) //
+local TabFarm = Window:CreateTab("🌀 Shadow Farm")
 
-TabMass:CreateToggle({
-   Name = "Auto-Farm: Teleport Under (NPC Solo)",
+TabFarm:CreateToggle({
+   Name = "Auto-Farm: Teleport Under Fixed",
    CurrentValue = false,
    Callback = function(Value)
       _G.AutoFarm = Value
       spawn(function()
          while _G.AutoFarm do
             pcall(function()
-               for _, v in pairs(workspace:GetDescendants()) do
-                  if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Health > 0 then
-                     if not game.Players:GetPlayerFromCharacter(v.Parent) then
-                        repeat
-                           game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.Parent.HumanoidRootPart.CFrame * CFrame.new(0, -8, 0)
-                           task.wait()
-                        until not _G.AutoFarm or v.Health <= 0
-                     end
-                  end
+               local enemies = GetEnemies()
+               if #enemies > 0 then
+                  local target = enemies[1] -- Pega o mais próximo
+                  repeat
+                     -- Teleporte via Pivot para garantir que vá para debaixo do NPC
+                     game.Players.LocalPlayer.Character:PivotTo(target.HumanoidRootPart.CFrame * CFrame.new(0, _G.Distance, 0))
+                     task.wait()
+                  until not _G.AutoFarm or not target:FindFirstChild("Humanoid") or target.Humanoid.Health <= 0
                end
             end)
             task.wait()
@@ -90,25 +96,27 @@ TabMass:CreateToggle({
    end,
 })
 
--- // 🛡️ ABA: GHOST & SURVIVAL //
-local TabGhost = Window:CreateTab("🛡️ Survival")
+-- // 🎭 ABA: GENGAR MODS //
+local TabGengar = Window:CreateTab("😈 Gengar Extras")
 
-TabGhost:CreateButton({
-   Name = "Invisible Mode (Bypass NPCs)",
+TabGengar:CreateSlider({
+   Name = "Ajustar Altura Debaixo do Solo",
+   Range = {-20, -5},
+   Increment = 1,
+   CurrentValue = -8,
+   Callback = function(Value) _G.Distance = Value end,
+})
+
+TabGengar:CreateButton({
+   Name = "Invisible Mode (NPC Bypass)",
    Callback = function()
-      local char = game.Players.LocalPlayer.Character
-      for _, v in pairs(char:GetChildren()) do
-         if v:IsA("BasePart") and v.Name ~= "HumanoidRootPart" then
-            v.Transparency = 1
-            v.CanCollide = false
-         end
-      end
+      game.Players.LocalPlayer.Character.LowerTorso:Destroy() -- Deleta a parte que os NPCs usam para te ver
    end,
 })
 
 -- // 📜 SALA DE CRÉDITOS //
 local TabCredits = Window:CreateTab("📜 Sala do Gengar")
 TabCredits:CreateLabel("👑 O Único Rei: red_wolf12370")
-TabCredits:CreateParagraph({Title = "COMO USAR O MASS KILL:", Content = "Fique com a arma na mão e ative o 'Mass Kill'. O script vai enviar o dano da sua arma para todos os bixos do mapa ao mesmo tempo, sem você precisar se mexer."})
+TabCredits:CreateParagraph({Title = "FIX V14", Content = "Agora o script usa o sistema de Pivot para o teleporte e o GetDescendants para não deixar nenhum NPC de fora do massacre."})
 
-Rayfield:Notify({Title = "KRONOS V13 MASSACRE", Content = "Sistema de Dano Global Ativado!", Duration = 5})
+Rayfield:Notify({Title = "KRONOS V14 FIXED", Content = "Massacre Total Ativado!", Duration = 5})
