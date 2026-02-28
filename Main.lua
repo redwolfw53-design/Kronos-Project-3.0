@@ -1,161 +1,166 @@
---[[
-    👑 KRONOS PT V6.0 | THE UNIVERSAL MONSTER
-    Dono: red_wolf12370
-    Build: Estável para Delta / Fluxus / Arceus
+--[[ 
+    😈 KRONOS PT V10.0 | GENGAR SHADOW EDITION
+    Dono: red_wolf12370 
+    Tema: Deep Purple & Gengar Style
+    Key: KRONOS
 --]]
 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Player = game.Players.LocalPlayer
-local Character = Player.Character or Player.CharacterAdded:Wait()
-local Humanoid = Character:WaitForChild("Humanoid")
-local Camera = workspace.CurrentCamera
-local Mouse = Player:GetMouse()
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- // 🎇 INTRO PROFISSIONAL (PRETO/VERMELHO/DOURADO) //
-local function PlayIntro()
-    local Screen = Instance.new("ScreenGui", game.CoreGui)
-    local Frame = Instance.new("Frame", Screen)
-    Frame.Size = UDim2.new(0, 220, 0, 220)
-    Frame.Position = UDim2.new(0.5, -110, 0.5, -110)
-    Frame.BackgroundColor3 = Color3.fromRGB(5, 5, 5)
-    
-    local Stroke = Instance.new("UIStroke", Frame)
-    Stroke.Color = Color3.fromRGB(212, 175, 55) -- Dourado
-    Stroke.Thickness = 3
-    
-    local Title = Instance.new("TextLabel", Frame)
-    Title.Size = UDim2.new(1, 0, 1, 0)
-    Title.Text = "KRONOS PT\nV6.0"
-    Title.TextColor3 = Color3.fromRGB(200, 0, 0) -- Vermelho
-    Title.Font = Enum.Font.Antique
-    Title.TextSize = 35
-    Title.BackgroundTransparency = 1
+-- // 🔑 SISTEMA DE KEY KRONOS //
+local Window = Rayfield:CreateWindow({
+   Name = "😈 KRONOS PT V10.0 | GENGAR EDITION",
+   LoadingTitle = "SHADOW SYSTEM INITIALIZING...",
+   LoadingSubtitle = "by red_wolf12370",
+   Theme = "Purple", -- Tema Roxo Gengar
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = "KronosGengar",
+      FileName = "Config"
+   },
+   KeySystem = true, 
+   KeySettings = {
+      Title = "🔑 KRONOS KEY SYSTEM",
+      Subtitle = "Digite a Chave do Dono",
+      Note = "Peça a key para o red_wolf12370",
+      FileName = "KronosKey",
+      SaveKey = true,
+      GrabKeyFromSite = false,
+      Key = {"KRONOS"} -- A CHAVE QUE VOCÊ PEDIU
+   }
+})
 
-    task.wait(10)
-    Screen:Destroy()
-end
+-- // CONFIGURAÇÕES DO MOTOR SHADOW //
+_G.AutoFarm = false
+_G.KillAura = false
+_G.NoRecoil = false
+_G.AutoLoot = false
 
-PlayIntro()
+-- // ⚔️ ABA: COMBAT GHOST (PURGATÓRIO EXCLUSIVE) //
+local TabCombat = Window:CreateTab("⚔️ Combat Shadow")
 
-local Window = OrionLib:MakeWindow({Name = "👑 KRONOS PT V6.0 | OWNER: RED_WOLF", HidePremium = false, SaveConfig = true, IntroEnabled = false})
+TabCombat:CreateToggle({
+   Name = "No Recoil & No Spread (Arma Parada)",
+   CurrentValue = false,
+   Callback = function(Value)
+      _G.NoRecoil = Value
+      game:GetService("RunService").RenderStepped:Connect(function()
+         if _G.NoRecoil then
+            -- Bypassa o recuo das armas do Purgatório
+            pcall(function()
+               local tool = game.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool")
+               if tool and tool:FindFirstChild("Configuration") then
+                  for _, v in pairs(tool.Configuration:GetChildren()) do
+                     if v.Name:find("Recoil") or v.Name:find("Spread") then
+                        v.Value = 0
+                     end
+                  end
+               end
+            end)
+         end
+      end)
+   end,
+})
 
--- // ⚔️ COMBAT ELITE (AIMBOT & HITBOX) //
-local TabCombat = Window:MakeTab({Name = "⚔️ Combat", Icon = "rbxassetid://4483345998"})
-
-_G.Aimbot = false
-TabCombat:AddToggle({
-    Name = "Aimbot Lock (Feet)",
-    Default = false,
-    Callback = function(v)
-        _G.Aimbot = v
-        game:GetService("RunService").RenderStepped:Connect(function()
-            if _G.Aimbot then
-                local Target = nil
-                local Dist = 1000
-                for _, p in pairs(game.Players:GetPlayers()) do
-                    if p ~= Player and p.Character and p.Character:FindFirstChild("LeftFoot") then
-                        local Pos, Vis = Camera:WorldToViewportPoint(p.Character.LeftFoot.Position)
-                        if Vis then
-                            local Mag = (Vector2.new(Mouse.X, Mouse.Y) - Vector2.new(Pos.X, Pos.Y)).Magnitude
-                            if Mag < Dist then Target = p Dist = Mag end
-                        end
+TabCombat:CreateToggle({
+   Name = "Aimbot Feet Lock (Shadow)",
+   CurrentValue = false,
+   Callback = function(Value)
+      _G.Aimbot = Value
+      spawn(function()
+         while _G.Aimbot do
+            local Target = nil
+            local Dist = 2000
+            for _, p in pairs(game.Players:GetPlayers()) do
+                if p ~= game.Players.LocalPlayer and p.Character and p.Character:FindFirstChild("LeftFoot") then
+                    local Pos, Vis = workspace.CurrentCamera:WorldToViewportPoint(p.Character.LeftFoot.Position)
+                    if Vis then
+                        local Mag = (Vector2.new(game:GetService("Players").LocalPlayer:GetMouse().X, game:GetService("Players").LocalPlayer:GetMouse().Y) - Vector2.new(Pos.X, Pos.Y)).Magnitude
+                        if Mag < Dist then Target = p Dist = Mag end
                     end
                 end
-                if Target then Camera.CFrame = CFrame.new(Camera.CFrame.Position, Target.Character.LeftFoot.Position) end
             end
-        end)
-    end
-})
-
-_G.HitboxSize = 2
-TabCombat:AddSlider({
-    Name = "Hitbox Gigante (Expand)",
-    Min = 2, Max = 50, Default = 2,
-    Callback = function(v)
-        _G.HitboxSize = v
-        spawn(function()
-            while true do
-                for _, p in pairs(game.Players:GetPlayers()) do
-                    if p ~= Player and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-                        p.Character.HumanoidRootPart.Size = Vector3.new(_G.HitboxSize, _G.HitboxSize, _G.HitboxSize)
-                        p.Character.HumanoidRootPart.Transparency = 0.7
-                        p.Character.HumanoidRootPart.BrickColor = BrickColor.new("Really red")
-                        p.Character.HumanoidRootPart.CanCollide = false
-                    end
-                end
-                task.wait(1)
+            if Target then
+                workspace.CurrentCamera.CFrame = workspace.CurrentCamera.CFrame:Lerp(CFrame.new(workspace.CurrentCamera.CFrame.Position, Target.Character.LeftFoot.Position), 0.2)
             end
-        end)
-    end
+            task.wait()
+         end
+      end)
+   end,
 })
 
--- // 🏃 MOVEMENT (FLY & SPEED) //
-local TabMove = Window:MakeTab({Name = "🏃 Movement", Icon = "rbxassetid://4483345998"})
+-- // 🌀 ABA: AUTO FARM & LOOT (SUPREMO) //
+local TabFarm = Window:CreateTab("🌀 Shadow Farm")
 
-TabMove:AddSlider({
-    Name = "Velocidade Máxima",
-    Min = 16, Max = 500, Default = 16,
-    Callback = function(v) Player.Character.Humanoid.WalkSpeed = v end
+TabFarm:CreateToggle({
+   Name = "Auto Farm: Underground (Bypass)",
+   CurrentValue = false,
+   Callback = function(V)
+      _G.AutoFarm = V
+      spawn(function()
+         while _G.AutoFarm do
+            pcall(function()
+               for _, v in pairs(workspace:GetChildren()) do
+                  if v:FindFirstChild("Humanoid") and v.Humanoid.Health > 0 and v:FindFirstChild("HumanoidRootPart") and v.Name ~= game.Players.LocalPlayer.Name then
+                     repeat
+                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = v.HumanoidRootPart.CFrame * CFrame.new(0, -8, 0)
+                        task.wait()
+                     until not _G.AutoFarm or v.Humanoid.Health <= 0
+                  end
+               end
+            end)
+            task.wait()
+         end
+      end)
+   end,
 })
 
-TabMove:AddButton({
-    Name = "Ativar Fly (Vôo V3)",
-    Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))() end
-})
-
--- // 🌀 EB DELTA (MAGNET) //
-local TabEB = Window:MakeTab({Name = "🌀 EB Delta", Icon = "rbxassetid://4483345998"})
-
-_G.Magnet = false
-TabEB:AddToggle({
-    Name = "Magnet Auto-Farm (Puxar PQP)",
-    Default = false,
-    Callback = function(v)
-        _G.Magnet = v
-        spawn(function()
-            while _G.Magnet do
-                for _, obj in pairs(workspace:GetDescendants()) do
-                    if obj:IsA("BasePart") and (obj.Name:find("Coin") or obj:FindFirstChild("TouchTransmitter")) then
-                        obj.CFrame = Player.Character.HumanoidRootPart.CFrame
-                    end
-                end
-                task.wait(0.1)
+TabFarm:CreateToggle({
+   Name = "Auto Loot (Pegar Itens Sozinho)",
+   CurrentValue = false,
+   Callback = function(V)
+      _G.AutoLoot = V
+      spawn(function()
+         while _G.AutoLoot do
+            for _, obj in pairs(workspace:GetDescendants()) do
+               if obj:IsA("TouchTransmitter") and obj.Parent.Name:find("Item") then
+                  firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, obj.Parent, 0)
+                  firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, obj.Parent, 1)
+               end
             end
-        end)
-    end
+            task.wait(0.5)
+         end
+      end)
+   end,
 })
 
--- // 🌍 UNIVERSAL (OUTRAS 50 FUNÇÕES) //
-local TabExtra = Window:MakeTab({Name = "🌍 Extra Mods", Icon = "rbxassetid://4483345998"})
+-- // 🎭 ABA: GENGAR MODS (EXTRAS) //
+local TabGengar = Window:CreateTab("😈 Gengar Extras")
 
-TabExtra:AddButton({Name = "Esp Full (Ver Paredes)", Callback = function() 
-    -- Script de ESP Simples integrado
-    for _, p in pairs(game.Players:GetPlayers()) do
-        if p ~= Player and p.Character then
-            local h = Instance.new("Highlight", p.Character)
-            h.FillColor = Color3.fromRGB(255, 0, 0)
-        end
-    end
-end})
+TabGengar:CreateButton({
+   Name = "Full Bright & No Fog",
+   Callback = function()
+      game:GetService("Lighting").Brightness = 2
+      game:GetService("Lighting").FogEnd = 100000
+      local light = Instance.new("PointLight", game.Players.LocalPlayer.Character.HumanoidRootPart)
+      light.Range = 100
+      light.Brightness = 2
+   end,
+})
 
-TabExtra:AddButton({Name = "Anti-AFK (Não ser Kickado)", Callback = function()
-    local vu = game:GetService("VirtualUser")
-    game:GetService("Players").LocalPlayer.Idled:connect(function()
-        vu:Button2Down(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-        wait(1)
-        vu:Button2Up(Vector2.new(0,0),workspace.CurrentCamera.CFrame)
-    end)
-end})
+TabGengar:CreateSlider({
+   Name = "Velocidade Shadow",
+   Range = {16, 300},
+   Increment = 1,
+   CurrentValue = 16,
+   Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end,
+})
 
--- Gerador de botões para completar as 50 funções
-for i = 1, 40 do
-    TabExtra:AddButton({Name = "Universal Function #"..i, Callback = function() end})
-end
+-- // 📜 SALA DE CRÉDITOS //
+local TabCredits = Window:CreateTab("📜 Sala do Gengar")
+TabCredits:CreateSection("Proprietário: red_wolf12370")
+TabCredits:CreateLabel("👑 O Rei do Purgatório")
+TabCredits:CreateLabel("🔱 Tema: Gengar Shadow")
+TabCredits:CreateParagraph({Title = "INFO", Content = "Script otimizado para burlar o Purgatório com sistema de Key KRONOS."})
 
--- // 📜 SALA DE CRÉDITOS (EXCLUSIVO) //
-local TabCredits = Window:MakeTab({Name = "📜 Credits", Icon = "rbxassetid://4483345998"})
-TabCredits:AddLabel("👑 CRIADOR: red_wolf12370")
-TabCredits:AddLabel("🔱 PROJETO: KRONOS PT")
-TabCredits:AddParagraph("Aviso:","Este script foi feito sob medida para red_wolf12370. O uso por terceiros sem permissão é proibido.")
-
-OrionLib:Init()
+Rayfield:Notify({Title = "KRONOS V10", Content = "Gengar Shadow Ativado!", Duration = 5})
