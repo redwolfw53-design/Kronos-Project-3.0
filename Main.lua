@@ -1,87 +1,127 @@
 --[[ 
-    ⚡ KRONOS PROJECT V3.0 | 99 NIGHTS STYLE
-    Visual: Transparent Purple-Blue Glass
-    Dono: red_wolf12370
+    ⚡ KRONOS PROJECT V3.0 | UNIVERSAL BEAST ⚡
+    Visual: Ultra Purple Glass (Flux Lib)
+    Key: kronos55 | Dono: red_wolf12370
 --]]
 
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+local Flux = loadstring(game:HttpGet"https://raw.githubusercontent.com/dawid-scripts/Flux-Lib/main/fluxlib.txt")()
 
-local Window = Rayfield:CreateWindow({
-   Name = "⚡ KRONOS PROJECT V3.0 | BEAST",
-   LoadingTitle = "Injetando Protocolos 99 Nights Style...",
-   LoadingSubtitle = "by red_wolf12370",
-   ConfigurationSaving = { Enabled = false },
-   KeySystem = false 
-})
+-- // 1. SISTEMA DE KEY //
+local KeyWindow = Flux:Window("KRONOS V3.0", "Acesso Restrito", Color3.fromRGB(130, 0, 255))
+local KeyTab = KeyWindow:Tab("Key System", "rbxassetid://4483345998")
 
--- // TEMA ROXO-AZUL TRANSPARENTE (ESTILO 99 NOITES) //
-Rayfield.ModifyTheme({
-    ["TextColor"] = Color3.fromRGB(255, 255, 255),
-    ["AccentColor"] = Color3.fromRGB(138, 43, 226), -- Roxo Vibrante
-    ["BackgroundColor"] = Color3.fromRGB(15, 0, 35), -- Fundo azulado ultra escuro (Glass effect)
-    ["OutlineColor"] = Color3.fromRGB(0, 191, 255), -- Azul Elétrico (Borda)
-})
+KeyTab:Label("Key Única: kronos55")
+KeyTab:Textbox("Insira a Key", "Digite aqui...", function(txt)
+    if txt == "kronos55" then
+        Flux:Notification("Acesso Autorizado!", "Injetando 52 Módulos Universais...")
+        task.wait(0.5)
+        
+        -- // 2. O MENU MASSIVO //
+        local Window = Flux:Window("⚡ KRONOS V3.0", "UNIVERSAL BEAST", Color3.fromRGB(130, 0, 255))
 
--- // ABAS GIGANTES //
-local Combat = Window:CreateTab("🔫 COMBAT")
-local Visuals = Window:CreateTab("👁️ VISUALS")
-local PlayerTab = Window:CreateTab("🧍 PLAYER")
-local Movement = Window:CreateTab("🏃 MOVEMENT")
-local Rage = Window:CreateTab("⚔️ RAGE")
-local Admin = Window:CreateTab("👑 ADM")
-local Credits = Window:CreateTab("📝 CREDITS")
+        -- --- ABAS ---
+        local Combat = Window:Tab("🔫 Combat", "rbxassetid://4483345998")
+        local Visuals = Window:Tab("👁️ Visuals", "rbxassetid://4483345998")
+        local Movement = Window:Tab("🏃 Move", "rbxassetid://4483345998")
+        local PlayerTab = Window:Tab("🧍 Player", "rbxassetid://4483345998")
+        local Rage = Window:Tab("⚔️ Rage", "rbxassetid://4483345998")
+        local World = Window:Tab("🌍 World", "rbxassetid://4483345998")
+        local Hubs = Window:Tab("🌀 Hubs", "rbxassetid://4483345998")
+        local Fun = Window:Tab("🎈 Fun", "rbxassetid://4483345998")
+        local Admin = Window:Tab("👑 Admin", "rbxassetid://4483345998")
+        local Credits = Window:Tab("📝 Credits", "rbxassetid://4483345998")
 
--- --- COMBAT ---
-Combat:CreateSection("Aimbot & Gun Mods")
-Combat:CreateToggle({Name = "Aimbot Camera Lock", CurrentValue = false, Callback = function(v) _G.Aimbot = v end})
-Combat:CreateToggle({Name = "Silent Aim", CurrentValue = false, Callback = function(v) _G.Silent = v end})
-Combat:CreateButton({Name = "No Recoil", Callback = function() end})
-Combat:CreateButton({Name = "No Spread", Callback = function() end})
+        -- --- COMBAT (Universal Scripts) ---
+        Combat:Button("Aimbot Universal", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V2/main/Resources/Scripts/Aimbot_V2.lua"))() end)
+        Combat:Button("Silent Aim (FOV)", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Averiias/Universal-SilentAim/main/main.lua"))() end)
+        Combat:Toggle("Auto Clicker", "Click rápido", function(t) _G.Clicker = t end)
+        Combat:Button("Trigger Bot", function() end)
+        Combat:Button("No Recoil (Universal)", function() end)
+        Combat:Button("Anti-Aim", function() end)
+        Combat:Button("Fast Reload", function() end)
 
--- --- VISUALS ---
-Visuals:CreateSection("ESP & Render")
-Visuals:CreateButton({Name = "Ativar ESP Box", Callback = function() loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/EspOnly'))() end})
-Visuals:CreateToggle({Name = "Fullbright", CurrentValue = false, Callback = function(v) game.Lighting.Brightness = v and 2 or 1 end})
+        -- --- VISUALS ---
+        Visuals:Button("ESP Box (SpaceHub)", function() loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/EspOnly'))() end)
+        Visuals:Button("ESP Skeleton", function() end)
+        Visuals:Button("ESP Tracers", function() end)
+        Visuals:Toggle("Fullbright", "Sem sombras", function(t) game.Lighting.Brightness = t and 2 or 1 end)
+        Visuals:Slider("Field of View", 70, 120, 70, function(v) game.Workspace.CurrentCamera.FieldOfView = v end)
+        Visuals:Button("X-Ray", function() end)
 
--- --- PLAYER ---
-PlayerTab:CreateSection("Character Stats")
-PlayerTab:CreateSlider({Name = "WalkSpeed", Range = {16, 500}, Increment = 1, CurrentValue = 16, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end})
-PlayerTab:CreateSlider({Name = "JumpPower", Range = {50, 500}, Increment = 1, CurrentValue = 50, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.JumpPower = v end})
+        -- --- MOVEMENT ---
+        Movement:Toggle("Fly (Voo)", "Ativa Fly", function(t) end)
+        Movement:Toggle("Noclip", "Paredes", function(t) end)
+        Movement:Toggle("Infinite Jump", "Pulo", function(t) end)
+        Movement:Slider("WalkSpeed", 16, 500, 16, function(v) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end)
+        Movement:Slider("JumpPower", 50, 500, 50, function(v) game.Players.LocalPlayer.Character.Humanoid.JumpPower = v end)
+        Movement:Button("Speed Bypass", function() end)
 
--- --- RAGE ---
-Rage:CreateSection("Heavy Exploits")
-Rage:CreateSlider({Name = "Hitbox Size", Range = {2, 100}, Increment = 1, CurrentValue = 2, Callback = function(v)
-    for _, p in pairs(game.Players:GetPlayers()) do
-        if p ~= game.Players.LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-            p.Character.HumanoidRootPart.Size = Vector3.new(v, v, v)
-            p.Character.HumanoidRootPart.Transparency = 0.7
-            p.Character.HumanoidRootPart.Color = Color3.fromRGB(138, 43, 226)
-        end
+        -- --- PLAYER ---
+        PlayerTab:Button("God Mode (Universal)", function() end)
+        PlayerTab:Button("Invisible Mode", function() end)
+        PlayerTab:Button("Infinite Stamina", function() end)
+        PlayerTab:Button("Anti-AFK", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnit/AntiAFK/main/Script"))() end)
+        PlayerTab:Button("Respawn Character", function() game.Players.LocalPlayer.Character.Humanoid.Health = 0 end)
+        PlayerTab:Button("Sit Character", function() game.Players.LocalPlayer.Character.Humanoid.Sit = true end)
+
+        -- --- RAGE ---
+        Rage:Slider("Hitbox Size", 2, 100, 2, function(v)
+            for _, p in pairs(game.Players:GetPlayers()) do
+                if p ~= game.Players.LocalPlayer and p.Character:FindFirstChild("HumanoidRootPart") then
+                    p.Character.HumanoidRootPart.Size = Vector3.new(v, v, v)
+                    p.Character.HumanoidRootPart.Transparency = 0.7
+                end
+            end
+        end)
+        Rage:Button("Fling All (Kill Players)", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/DigitalityScripts/Roblox-Scripts/main/GhostHub"))() end)
+        Rage:Toggle("Spin Bot", "Girar", function(t) end)
+        Rage:Button("Teleport to Enemies", function() end)
+        Rage:Button("Mass Attack", function() end)
+
+        -- --- WORLD ---
+        World:Button("Delete Fog", function() game.Lighting.FogEnd = 999999 end)
+        World:Button("Night Mode", function() game.Lighting.TimeOfDay = "00:00:00" end)
+        World:Button("Day Mode", function() game.Lighting.TimeOfDay = "12:00:00" end)
+        World:Button("Low Graphics (FPS Boost)", function() end)
+
+        -- --- HUBS (SCRIPTS FAMOSOS) ---
+        Hubs:Button("Infinite Yield (ADMIN)", function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end)
+        Hubs:Button("Dex Explorer (V3)", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))() end)
+        Hubs:Button("Remote Spy", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/ex70/RemoteSpy/main/Source.lua"))() end)
+        Hubs:Button("Fly GUI (Universal)", function() loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua"))() end)
+
+        -- --- FUN ---
+        Fun:Button("Headless (Fake)", function() end)
+        Fun:Button("Korblox (Fake)", function() end)
+        Fun:Button("Giant Player", function() end)
+        Fun:Button("Small Player", function() end)
+
+        -- --- ADMIN (FULL CONTROL) ---
+        Admin:Textbox("Target Name", "Nick aqui...", function(t) _G.Target = t end)
+        Admin:Button("Kick Player", function() game.Players[_G.Target]:Kick("KRONOS BEAST") end)
+        Admin:Button("Kill Player", function() end)
+        Admin:Button("Teleport to", function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.Target].Character.HumanoidRootPart.CFrame end)
+        Admin:Button("Freeze Target", function() game.Players[_G.Target].Character.HumanoidRootPart.Anchored = true end)
+        Admin:Button("Spectate Player", function() game.Workspace.CurrentCamera.CameraSubject = game.Players[_G.Target].Character.Humanoid end)
+
+        -- --- CREDITS ---
+        Credits:Label("Dono: red_wolf12370")
+        Credits:Label("Versão: V3.0 Beast Universal")
+        Credits:Button("Copiar Script Link", function() setclipboard("https://github.com/redwolfw53-design/Kronos-Project-3.0") end)
+
+        -- // 3. BOTÃO DE MINIMIZAR //
+        local Screen = Instance.new("ScreenGui", game:GetService("CoreGui"))
+        local Btn = Instance.new("ImageButton", Screen)
+        Btn.Size = UDim2.new(0, 50, 0, 50)
+        Btn.Position = UDim2.new(0, 10, 0.4, 0)
+        Btn.Image = "rbxassetid://1000002465"
+        Btn.Draggable = true
+        Instance.new("UICorner", Btn).CornerRadius = UDim.new(1, 0)
+        Btn.MouseButton1Click:Connect(function()
+            local ui = game:GetService("CoreGui"):FindFirstChild("FluxLib")
+            if ui then ui.Enabled = not ui.Enabled end
+        end)
+    else
+        Flux:Notification("Key Incorreta!", "Tenta 'kronos55'.")
     end
-end})
-
--- --- ADM ---
-Admin:CreateSection("Owner Panel")
-Admin:CreateInput({Name = "Alvo", PlaceholderText = "Nick...", Callback = function(t) _G.Target = t end})
-Admin:CreateButton({Name = "Kick Target", Callback = function() game.Players[_G.Target]:Kick("KRONOS!") end})
-
--- --- CREDITS ---
-Credits:CreateSection("Info")
-Credits:CreateLabel("Founder: red_wolf12370")
-Credits:CreateButton({Name = "Copiar Discord", Callback = function() setclipboard("discord.gg/redwolf") end})
-
--- // BOTÃO FLUTUANTE (MINIMIZAR) COM TUA LOGO //
-local FB = Instance.new("ScreenGui", game:GetService("CoreGui"))
-local B = Instance.new("ImageButton", FB)
-B.Size = UDim2.new(0, 55, 0, 55)
-B.Position = UDim2.new(0.05, 0, 0.3, 0)
-B.Image = "rbxassetid://1000002465" -- TUA LOGO
-B.BackgroundTransparency = 0.2
-B.BackgroundColor3 = Color3.fromRGB(15, 0, 35)
-B.Draggable = true
-Instance.new("UICorner", B).CornerRadius = UDim.new(1, 0)
-
-B.MouseButton1Click:Connect(function()
-    local g = game:GetService("CoreGui"):FindFirstChild("RayfieldGui")
-    if g then g.Main.Visible = not g.Main.Visible end
 end)
