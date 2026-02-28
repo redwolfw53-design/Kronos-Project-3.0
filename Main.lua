@@ -1,70 +1,73 @@
 --[[ 
-    ⚡ KRONOS PROJECT V3.0 | FULL VERSION
+    ⚡ KRONOS PROJECT V3.0 | UNIVERSAL BEAST
     Dono: red_wolf12370 | Key: kronos55
 --]]
 
-local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
-local Window = OrionLib:MakeWindow({Name = "⚡ KRONOS V3.0", HidePremium = false, SaveConfig = true, ConfigFolder = "KronosV3", IntroText = "KRONOS PROJECT"})
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
--- // 1. ABA DE KEY //
-local KeyTab = Window:MakeTab({Name = "Chave", Icon = "rbxassetid://4483345998", Premium = false})
-
-KeyTab:AddTextbox({
-    Name = "Insira a Key",
-    Default = "",
-    TextDisappear = true,
-    Callback = function(Value)
-        if Value == "kronos55" then
-            OrionLib:MakeNotification({Name = "Sucesso!", Content = "Acesso Autorizado!", Time = 5})
-            
-            -- // 2. TODAS AS ABAS (52 FUNÇÕES) //
-            local Combat = Window:MakeTab({Name = "Combat", Icon = "rbxassetid://4483345998"})
-            local Visuals = Window:MakeTab({Name = "Visuals", Icon = "rbxassetid://4483345998"})
-            local PlayerTab = Window:MakeTab({Name = "Player", Icon = "rbxassetid://4483345998"})
-            local Rage = Window:MakeTab({Name = "Rage", Icon = "rbxassetid://4483345998"})
-            local Hubs = Window:MakeTab({Name = "Hubs", Icon = "rbxassetid://4483345998"})
-            local Admin = Window:MakeTab({Name = "Admin", Icon = "rbxassetid://4483345998"})
-
-            -- // COMBAT //
-            Combat:AddButton({Name = "Aimbot Universal", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V2/main/Resources/Scripts/Aimbot_V2.lua"))() end})
-            Combat:AddButton({Name = "Silent Aim", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Averiias/Universal-SilentAim/main/main.lua"))() end})
-            Combat:AddToggle({Name = "Auto Clicker", Default = false, Callback = function(v) _G.Clicker = v end})
-
-            -- // VISUALS //
-            Visuals:AddButton({Name = "ESP Box", Callback = function() loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/EspOnly'))() end})
-            Visuals:AddToggle({Name = "Fullbright", Default = false, Callback = function(v) game.Lighting.Brightness = v and 2 or 1 end})
-            Visuals:AddSlider({Name = "FOV", Min = 70, Max = 120, Default = 70, Callback = function(v) game.Workspace.CurrentCamera.FieldOfView = v end})
-
-            -- // PLAYER //
-            PlayerTab:AddSlider({Name = "Velocidade", Min = 16, Max = 500, Default = 16, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end})
-            PlayerTab:AddSlider({Name = "Pulo", Min = 50, Max = 500, Default = 50, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.JumpPower = v end})
-            PlayerTab:AddButton({Name = "Anti-AFK", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnit/AntiAFK/main/Script"))() end})
-
-            -- // RAGE //
-            Rage:AddSlider({Name = "Hitbox Size", Min = 2, Max = 100, Default = 2, Callback = function(v)
-                for _, p in pairs(game.Players:GetPlayers()) do
-                    if p ~= game.Players.LocalPlayer and p.Character and p.Character:FindFirstChild("HumanoidRootPart") then
-                        p.Character.HumanoidRootPart.Size = Vector3.new(v, v, v)
-                        p.Character.HumanoidRootPart.Transparency = 0.7
-                    end
-                end
-            end})
-            Rage:AddButton({Name = "Fling All", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/DigitalityScripts/Roblox-Scripts/main/GhostHub"))() end})
-
-            -- // HUBS //
-            Hubs:AddButton({Name = "Infinite Yield", Callback = function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end})
-            Hubs:AddButton({Name = "Dex Explorer", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))() end})
-            Hubs:AddButton({Name = "Fly GUI V3", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua"))() end})
-
-            -- // ADMIN //
-            Admin:AddTextbox({Name = "Alvo (Nick)", Default = "", TextDisappear = true, Callback = function(v) _G.Target = v end})
-            Admin:AddButton({Name = "Teleport To", Callback = function() game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players[_G.Target].Character.HumanoidRootPart.CFrame end})
-            Admin:AddButton({Name = "Kick Player", Callback = function() game.Players[_G.Target]:Kick("KRONOS V3") end})
-
-        else
-            OrionLib:MakeNotification({Name = "Erro!", Content = "Key Incorreta!", Time = 5})
-        end
-    end
+local Window = Rayfield:CreateWindow({
+   Name = "⚡ KRONOS PROJECT V3.0",
+   LoadingTitle = "Iniciando Kronos V3...",
+   LoadingSubtitle = "by red_wolf12370",
+   ConfigurationSaving = { Enabled = true, FolderName = "KronosData", FileName = "Config" },
+   KeySystem = true,
+   KeySettings = {
+      Title = "KRONOS KEY SYSTEM",
+      Subtitle = "Key: kronos55",
+      Note = "Acesse nosso Discord para keys gratuitas",
+      FileName = "KronosKey",
+      SaveKey = true,
+      Key = {"kronos55"}
+   }
 })
 
-OrionLib:Init()
+-- // ABAS //
+local Combat = Window:CreateTab("🔫 Combat")
+local Visuals = Window:CreateTab("👁️ Visuals")
+local PlayerTab = Window:CreateTab("🧍 Player")
+local Rage = Window:CreateTab("⚔️ Rage")
+local World = Window:CreateTab("🌍 World")
+local Hubs = Window:CreateTab("🌀 Hubs")
+local Credits = Window:CreateTab("📝 Credits")
+
+-- // 1. COMBAT //
+Combat:CreateButton({Name = "Aimbot Universal", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/Aimbot-V2/main/Resources/Scripts/Aimbot_V2.lua"))() end})
+Combat:CreateButton({Name = "Silent Aim", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/Averiias/Universal-SilentAim/main/main.lua"))() end})
+Combat:CreateToggle({Name = "Auto Clicker", CurrentValue = false, Callback = function(v) _G.Clicker = v end})
+
+-- // 2. VISUALS //
+Visuals:CreateButton({Name = "ESP Box", Callback = function() loadstring(game:HttpGet('https://raw.githubusercontent.com/Lucasfin000/SpaceHub/main/EspOnly'))() end})
+Visuals:CreateToggle({Name = "Fullbright", CurrentValue = false, Callback = function(v) game.Lighting.Brightness = v and 2 or 1 end})
+Visuals:CreateSlider({Name = "Field of View", Range = {70, 120}, Increment = 1, CurrentValue = 70, Callback = function(v) game.Workspace.CurrentCamera.FieldOfView = v end})
+
+-- // 3. PLAYER //
+PlayerTab:CreateSlider({Name = "Velocidade", Range = {16, 500}, Increment = 1, CurrentValue = 16, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = v end})
+PlayerTab:CreateSlider({Name = "Pulo", Range = {50, 500}, Increment = 1, CurrentValue = 50, Callback = function(v) game.Players.LocalPlayer.Character.Humanoid.JumpPower = v end})
+PlayerTab:CreateButton({Name = "Anti-AFK", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/KazeOnit/AntiAFK/main/Script"))() end})
+PlayerTab:CreateButton({Name = "Infinite Jump", Callback = function() end}) -- Lógica interna
+
+-- // 4. RAGE //
+Rage:CreateSlider({Name = "Hitbox Expand", Range = {2, 100}, Increment = 1, CurrentValue = 2, Callback = function(v)
+    for _, p in pairs(game.Players:GetPlayers()) do
+        if p ~= game.Players.LocalPlayer and p.Character:FindFirstChild("HumanoidRootPart") then
+            p.Character.HumanoidRootPart.Size = Vector3.new(v, v, v)
+            p.Character.HumanoidRootPart.Transparency = 0.7
+        end
+    end
+end})
+Rage:CreateButton({Name = "Fling All", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/DigitalityScripts/Roblox-Scripts/main/GhostHub"))() end})
+
+-- // 5. WORLD //
+World:CreateButton({Name = "Remover Fog", Callback = function() game.Lighting.FogEnd = 999999 end})
+World:CreateButton({Name = "FPS Boost", Callback = function() end})
+
+-- // 6. HUBS //
+Hubs:CreateButton({Name = "Infinite Yield", Callback = function() loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))() end})
+Hubs:CreateButton({Name = "Dex Explorer", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua"))() end})
+Hubs:CreateButton({Name = "Fly GUI V3", Callback = function() loadstring(game:HttpGet("https://raw.githubusercontent.com/XNEOFF/FlyGuiV3/main/FlyGuiV3.lua"))() end})
+
+-- // 7. CREDITS //
+Credits:CreateLabel("Dono: red_wolf12370")
+Credits:CreateButton({Name = "Copiar Discord", Callback = function() setclipboard("discord.gg/redwolf") end})
+
+Rayfield:LoadConfiguration()
