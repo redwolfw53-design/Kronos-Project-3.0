@@ -1,116 +1,158 @@
-
 --[[ 
-    😈 KRONOS PT V23.0 | GENGAR SHADOW (FIX TOTAL)
+    👑 KRONOS MULTI-HUB V30 | O IMPÉRIO DO DELTA
     Dono: red_wolf12370 
-    Tema: Purple Shadow
-    Key: KRONOS
+    Tema: Gengar Shadow (Roxo Dark)
+    Descrição: 15 Categorias com os Melhores Scripts do Roblox
 --]]
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "😈 KRONOS PT V23.0 | PURGATORY FIX",
-   LoadingTitle = "SCANNEANDO MAPA E NPCs...",
+   Name = "👑 KRONOS MULTI-HUB | V30",
+   LoadingTitle = "CARREGANDO O IMPÉRIO DE SCRIPTS...",
    Theme = "Purple",
-   KeySystem = true, 
-   KeySettings = {
-      Title = "🔑 KRONOS KEY",
-      Key = {"KRONOS"}
-   }
+   ConfigurationSaving = { Enabled = false }
 })
 
-_G.AutoFarm = false
-_G.GodMode = false
-_G.Distance = 8
-
--- // LOCALIZADOR UNIVERSAL (PEGA ATÉ NPC ESCONDIDO) //
-local function GetClosestNPC()
-    local Target = nil
-    local Distance = math.huge
-    for _, v in pairs(game:GetService("Workspace"):GetDescendants()) do
-        if v:IsA("Humanoid") and v.Parent:FindFirstChild("HumanoidRootPart") and v.Health > 0 then
-            if not game.Players:GetPlayerFromCharacter(v.Parent) and v.Parent ~= game.Players.LocalPlayer.Character then
-                local Mag = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - v.Parent.HumanoidRootPart.Position).Magnitude
-                if Mag < Distance then
-                    Distance = Mag
-                    Target = v.Parent
-                end
-            end
-        end
-    end
-    return Target
-end
-
--- // 🌀 ABA: AUTO FARM SUPREMO //
-local TabFarm = Window:CreateTab("🌀 Shadow Farm")
-
-TabFarm:CreateToggle({
-   Name = "AUTO FARM 100% (Modo Caçador)",
-   CurrentValue = false,
-   Callback = function(Value)
-      _G.AutoFarm = Value
-      spawn(function()
-         while _G.AutoFarm do
-            pcall(function()
-               local npc = GetClosestNPC()
-               if npc then
-                  -- Teleporte de Precisão (Tween)
-                  local char = game.Players.LocalPlayer.Character
-                  local tool = char:FindFirstChildOfClass("Tool")
-                  
-                  -- Fica em cima do bicho pra não cair no chão falso
-                  char.HumanoidRootPart.CFrame = npc.HumanoidRootPart.CFrame * CFrame.new(0, _G.Distance, 0) * CFrame.Angles(math.rad(-90), 0, 0)
-                  
-                  if tool then
-                     tool:Activate() -- Ataca
-                     -- Força o dano no bicho
-                     firetouchinterest(tool.Handle, npc.HumanoidRootPart, 0)
-                     firetouchinterest(tool.Handle, npc.HumanoidRootPart, 1)
-                  end
-               end
-            end)
-            task.wait(0.1)
-         end
-      end)
-   end,
-})
-
--- // 🛡️ ABA: GOD MODE & BYPASS //
-local TabGod = Window:CreateTab("🛡️ God Mode")
-
-TabGod:CreateButton({
-   Name = "ATIVAR IMORTALIDADE (Anti-Dano)",
+-- // 1. CATEGORIA: PARKOUR (PEDRINHUU) //
+local TabPk = Window:CreateTab("🏃 Parkour")
+TabPk:CreateButton({
+   Name = "Executar Pedrinhuu Parkour",
    Callback = function()
-      _G.GodMode = true
-      local lp = game.Players.LocalPlayer
-      if lp.Character:FindFirstChild("Humanoid") then
-         lp.Character.Humanoid:SetStateEnabled(Enum.HumanoidStateType.Dead, false)
-         -- Deleta as partes que recebem dano (No-Hitbox)
-         if lp.Character:FindFirstChild("LowerTorso") then lp.Character.LowerTorso:Destroy() end
-         Rayfield:Notify({Title = "SISTEMA", Content = "God Mode Ativado!", Duration = 5})
-      end
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/PEDRINHUU-PARKUR/refs/heads/main/Script.md"))()
    end,
 })
 
--- // 🎭 ABA: EXTRAS //
-local TabExtra = Window:CreateTab("🎭 Funções")
-
-TabExtra:CreateSlider({
-   Name = "Ajustar Altura do Farm",
-   Range = {5, 20},
-   Increment = 1,
-   CurrentValue = 8,
-   Callback = function(v) _G.Distance = v end,
+-- // 2. CATEGORIA: VOLLEYBALL LEGACY //
+local TabVl = Window:CreateTab("🏐 Volleyball")
+TabVl:CreateButton({
+   Name = "Executar Ghost Hub (O Melhor)",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/GhostPlayer352/Test4/main/GhostHub"))()
+   end,
 })
 
-TabExtra:CreateButton({
-   Name = "Velocidade Gengar (150)",
-   Callback = function() game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 150 end,
+-- // 3. CATEGORIA: BLOX FRUITS //
+local TabBf = Window:CreateTab("🍍 Blox Fruits")
+TabBf:CreateButton({
+   Name = "Redz Hub (Auto Farm Rápido)",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/realredz/BloxFruits/main/Source.lua"))()
+   end,
+})
+TabBf:CreateButton({
+   Name = "Hoho Hub (Estável)",
+   Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/acsu123/HOHO_HUB/main/Start'))()
+   end,
 })
 
--- // 📜 SALA DE CRÉDITOS //
-local TabCredits = Window:CreateTab("📜 Sala do Gengar")
-TabCredits:CreateLabel("👑 Script Original: red_wolf12370")
-TabCredits:CreateParagraph({Title = "DICA DE OURO:", Content = "Se o Auto-Farm não mexer, é porque você precisa estar SEGURANDO UMA ARMA na mão antes de ligar o botão."})
+-- // 4. CATEGORIA: MONEY/ECONOMY //
+local TabMon = Window:CreateTab("💰 Money/Farm")
+TabMon:CreateButton({
+   Name = "Khaos Money V1",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/KHAOS-MONEY-V1/refs/heads/main/Script.md"))()
+   end,
+})
 
-Rayfield:Notify({Title = "KRONOS V23 FIXED", Content = "Scanner de NPCs Ativo!", Duration = 5})
+-- // 5. CATEGORIA: TRINK MENU //
+local TabTrink = Window:CreateTab("🛠️ Trink Menu")
+TabTrink:CreateButton({
+   Name = "Executar Trink Menu",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/PedrinhuuScripts/Trink-Menu/refs/heads/main/Script.md"))()
+   end,
+})
+
+-- // 6. CATEGORIA: BROOKHAVEN //
+local TabBk = Window:CreateTab("🏠 Brookhaven")
+TabBk:CreateButton({
+   Name = "Ice Hub (Troll/Admin)",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/IceMael7/NewIceHub/main/Brookhaven"))()
+   end,
+})
+
+-- // 7. CATEGORIA: DOORS //
+local TabDoors = Window:CreateTab("👁️ Doors")
+TabDoors:CreateButton({
+   Name = "MSPAINT (Melhor do Doors)",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/notpoiu/mspaint/main/main.lua"))()
+   end,
+})
+
+-- // 8. CATEGORIA: ADOPT ME //
+local TabAm = Window:CreateTab("🐶 Adopt Me")
+TabAm:CreateButton({
+   Name = "Null Hub (Auto Farm Pets)",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/Nullware-Official/v2/main/AdoptMe.lua"))()
+   end,
+})
+
+-- // 9. CATEGORIA: BLADE BALL //
+local TabBb = Window:CreateTab("⚔️ Blade Ball")
+TabBb:CreateButton({
+   Name = "FFJ Hub (Auto Parry)",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/FFJ1/Roblox-Exploits/main/Scripts/BladeBall.lua"))()
+   end,
+})
+
+-- // 10. CATEGORIA: BEDWARS //
+local TabBed = Window:CreateTab("🛏️ Bedwars")
+TabBed:CreateButton({
+   Name = "Vape V4 (O Deus do PvP)",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua"))()
+   end,
+})
+
+-- // 11. CATEGORIA: PET SIMULATOR 99 //
+local TabPs = Window:CreateTab("🐱 Pet Sim 99")
+TabPs:CreateButton({
+   Name = "Zap Hub",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ZapHub-Roblox/Main/main/PetSim99.lua"))()
+   end,
+})
+
+-- // 12. CATEGORIA: ARSENAL/FPS //
+local TabFps = Window:CreateTab("🔫 FPS/Arsenal")
+TabFps:CreateButton({
+   Name = "ThunderZ Aimbot",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ThunderZHub/Main/main/Arsenal.lua"))()
+   end,
+})
+
+-- // 13. CATEGORIA: MURDER MYSTERY 2 //
+local TabMm2 = Window:CreateTab("🔪 Murder Mystery 2")
+TabMm2:CreateButton({
+   Name = "Vynixius Hub",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Loader.lua"))()
+   end,
+})
+
+-- // 14. CATEGORIA: BEE SWARM SIM //
+local TabBee = Window:CreateTab("🐝 Bee Swarm")
+TabBee:CreateButton({
+   Name = "Ape Hub (Auto Farm Honey)",
+   Callback = function()
+      loadstring(game:HttpGet("https://raw.githubusercontent.com/ApeHub/Main/main/BeeSwarm.lua"))()
+   end,
+})
+
+-- // 15. CATEGORIA: UNIVERSAL (ADMIN) //
+local TabUni = Window:CreateTab("🌍 Universal")
+TabUni:CreateButton({
+   Name = "Infinite Yield (Fly, Noclip, Speed)",
+   Callback = function()
+      loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()
+   end,
+})
+
+Rayfield:Notify({Title = "KRONOS V30", Content = "15 Categorias Prontas!", Duration = 5})
