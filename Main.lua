@@ -1,68 +1,88 @@
 --[[ 
-    👑 KRONOS MULTI-HUB | V42 GIGA EDITION
-    🛡️ ANTI-BAN PROTOCOL: ACTIVATED (BYPASS LAYER V2)
+    👑 KRONOS PROJECT 4.0 | MEGA DATABASE
     Dono: red_wolf12370 
+    Estrutura: 40 Categorias | 20 Scripts por Aba | SEM KEY
 --]]
 
 local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 
 local Window = Rayfield:CreateWindow({
-   Name = "👑 KRONOS ULTIMATE | V42 (SAFE)",
-   LoadingTitle = "ATIVANDO PROTOCOLO ANTI-BAN...",
+   Name = "👑 KRONOS PROJECT 4.0 | V42",
+   LoadingTitle = "CARREGANDO DATABASE (SEM KEY)...",
    Theme = "Purple",
    ConfigurationSaving = { Enabled = false }
 })
 
--- // 🛡️ CAMADA DE SEGURANÇA KRONOS (BYPASS) //
--- Esta função limpa os rastros de execução para o Anti-Cheat não ler
-local function SafeExecute(url)
+-- // 🛡️ FUNÇÃO DE EXECUÇÃO RÁPIDA //
+local function Execute(url)
     task.spawn(function()
-        -- Proteção de Metatable (Engana o jogo sobre o que o script faz)
-        if setfflag then
-            setfflag("AbuseReportScreenshot", "False")
-            setfflag("CrashPadUploadToS3", "False")
-        end
-        
         local s, res = pcall(function() return game:HttpGet(url) end)
-        if s and res and #res > 0 then 
-            -- Notificação de Proteção
-            Rayfield:Notify({Title = "PROTEÇÃO ATIVA", Content = "Bypass aplicado. Executando com segurança...", Duration = 2})
-            loadstring(res)() 
-        else 
-            Rayfield:Notify({Title = "ERRO KRONOS", Content = "Script offline ou protegido pelo servidor!", Duration = 3}) 
-        end
+        if s and res and #res > 0 then loadstring(res)() end
     end)
 end
 
--- // ⚔️ CATEGORIA 1: COMBAT & JJS (20+ SCRIPTS) //
-local TabC = Window:CreateTab("⚔️ Combat/JJS")
-TabC:CreateSection("Bypass Anti-Cheat Ativado")
-TabC:CreateButton({Name = "Saitama Hub (Safe)", Callback = function() SafeExecute("https://raw.githubusercontent.com/SaitamaHub/Main/main/Saitama.lua") end})
-TabC:CreateButton({Name = "Combat V2 (Auto-JJS)", Callback = function() SafeExecute("https://raw.githubusercontent.com/PedrinhuuScripts/PEDRINHUU-PVP-AIMBOT-AIMLOCK/main/Pedrinhuu%20Menu%20PVP%201.0") end})
--- [Continue preenchendo até 20 aqui]
+-- // 🪖 ABA 01: EB DO DELTA (JJS & TREINO) //
+local TabEB = Window:CreateTab("🪖 EB do Delta")
+TabEB:CreateSection("Scripts Oficiais Pedrinhuu")
+TabEB:CreateButton({Name = "💰 Khaos Money V1", Callback = function() Execute("https://raw.githubusercontent.com/PedrinhuuScripts/KHAOS-MONEY-V1/refs/heads/main/Script.md") end})
+TabEB:CreateButton({Name = "📜 Trink Menu (JJS)", Callback = function() Execute("https://raw.githubusercontent.com/PedrinhuuScripts/Trink-Menu/refs/heads/main/Script.md") end})
+TabEB:CreateButton({Name = "🏃 Pedrinhuu Parkour", Callback = function() Execute("https://raw.githubusercontent.com/PedrinhuuScripts/PEDRINHUU-PARKUR/refs/heads/main/Script.md") end})
+-- [Adicione mais 17 botões aqui para completar 20]
 
--- // 🌊 CATEGORIA 2: BLOX FRUITS (20+ SCRIPTS) //
-local TabBf = Window:CreateTab("🌊 Blox Fruits")
-TabBf:CreateButton({Name = "Redz Hub (Anti-Kick)", Callback = function() SafeExecute("https://raw.githubusercontent.com/realredz/BloxFruits/main/Source.lua") end})
-TabBf:CreateButton({Name = "W-Azure Lite (Safe Farm)", Callback = function() SafeExecute("https://api.luarmor.net/files/v3/loaders/3b2169cf5333c0ffad8cf812832570c6.lua") end})
--- [Continue preenchendo até 20 aqui]
+-- // 🌊 ABA 02: BLOX FRUITS //
+local TabBF = Window:CreateTab("🌊 Blox Fruits")
+TabBF:CreateButton({Name = "Redz Hub", Callback = function() Execute("https://raw.githubusercontent.com/realredz/BloxFruits/main/Source.lua") end})
+TabBF:CreateButton({Name = "W-Azure Lite", Callback = function() Execute("https://api.luarmor.net/files/v3/loaders/3b2169cf5333c0ffad8cf812832570c6.lua") end})
+-- [Preencher até 20 botões]
 
--- // 🏐 CATEGORIA 3: ESPORTES (20+ SCRIPTS) //
-local TabSp = Window:CreateTab("🏐 Esportes")
-TabSp:CreateButton({Name = "Ghost Hub V3 (Vôlei)", Callback = function() SafeExecute("https://raw.githubusercontent.com/GhostPlayer352/Test4/main/GhostHub") end})
-TabSp:CreateButton({Name = "Blade Ball (Auto-Block Safe)", Callback = function() SafeExecute("https://raw.githubusercontent.com/FFJ1/Roblox-Exploits/main/Scripts/BladeBall.lua") end})
--- [Continue preenchendo até 20 aqui]
+-- // 🚗 ABA 03: BROOKHAVEN //
+local TabBH = Window:CreateTab("🚗 Brookhaven")
+TabBH:CreateButton({Name = "Ice Hub", Callback = function() Execute("https://raw.githubusercontent.com/IceBear-Scripts/IceBear-Scripts/main/IceHub.lua") end})
+-- [Preencher até 20 botões]
 
--- // 💎 CATEGORIA 4: SIMULATORS (20+ SCRIPTS) //
-local TabSim = Window:CreateTab("💎 Simulators")
-TabSim:CreateButton({Name = "Pet Sim 99 (Stealth)", Callback = function() SafeExecute("https://raw.githubusercontent.com/xshiba/PetSimulator99/main/main.lua") end})
-TabSim:CreateButton({Name = "Fisch Auto-Farm (Anti-Detection)", Callback = function() SafeExecute("https://raw.githubusercontent.com/Looser3934/Fisch/main/Main.lua") end})
--- [Continue preenchendo até 20 aqui]
+-- // 👹 ABA 04: DOORS //
+local TabDR = Window:CreateTab("👹 Doors")
+TabDR:CreateButton({Name = "MSPAINT", Callback = function() Execute("https://raw.githubusercontent.com/notpoiu/mspaint/main/main.lua") end})
+-- [Preencher até 20 botões]
 
--- // 🌍 CATEGORIA 5: UNIVERSAL (20+ SCRIPTS) //
+-- // 🔪 ABA 05: MURDER MYSTERY 2 //
+local TabMM = Window:CreateTab("🔪 Murder Mystery 2")
+TabMM:CreateButton({Name = "Viper Hub MM2", Callback = function() Execute("https://raw.githubusercontent.com/Viper-Hub/Viper/main/Main.lua") end})
+-- [Preencher até 20 botões]
+
+-- // 🚔 ABA 06: JAILBREAK //
+local TabJB = Window:CreateTab("🚔 Jailbreak")
+-- [Preencher até 20 botões]
+
+-- // 🏀 ABA 07: BLADE BALL //
+local TabBB = Window:CreateTab("🏀 Blade Ball")
+-- [Preencher até 20 botões]
+
+-- // 🏐 ABA 08: ESPORTES //
+local TabSP = Window:CreateTab("🏐 Esportes")
+-- [Preencher até 20 botões]
+
+-- // 🛡️ ABA 39: UNIVERSAL //
 local TabUni = Window:CreateTab("🌍 Universal")
-TabUni:CreateButton({Name = "Infinite Yield (Admin)", Callback = function() SafeExecute("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source") end})
-TabUni:CreateButton({Name = "Dex Explorer (Invisible Mode)", Callback = function() SafeExecute("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua") end})
--- [Continue preenchendo até 20 aqui]
+TabUni:CreateButton({Name = "Infinite Yield", Callback = function() Execute("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source") end})
+TabUni:CreateButton({Name = "CMD-X", Callback = function() Execute("https://raw.githubusercontent.com/CMD-X/CMD-X/master/Source") end})
+TabUni:CreateButton({Name = "Dex Explorer", Callback = function() Execute("https://raw.githubusercontent.com/infyiff/backup/main/dex.lua") end})
+-- [Preencher até 20 botões]
 
-Rayfield:Notify({Title = "KRONOS SHIELD", Content = "Sistema Anti-Ban Operacional!", Duration = 5})
+-- // 📋 ABA 40: CRÉDITOS //
+local TabCred = Window:CreateTab("📋 Créditos")
+TabCred:CreateSection("Proprietário do Projeto")
+TabCred:CreateLabel("👑 red_wolf12370")
+TabCred:CreateSection("Redes Sociais")
+TabCred:CreateButton({Name = "Copiar Discord", Callback = function() setclipboard("https://discord.gg/YMNch9M9F") end})
+TabCred:CreateLabel("Versão: 4.0 | 2026 Build")
+
+-- // CRIAÇÃO AUTOMÁTICA DAS ABAS FAMOSAS QUE FALTAM (09 a 38) //
+local jogos = {"Adopt Me", "Pet Sim 99", "All Star TD", "Anime Adv", "Bedwars", "SharkBite", "Muscle Legends", "Bee Swarm", "Build A Boat", "Arsenal", "Piggy", "Natural Disaster", "Tower of Hell", "Pet Fighting", "Wild West", "Mad City", "Speed Run", "Pizza Place", "Brookhaven V2", "Tycoons", "Obbys", "Anime Vanguards", "Sol RNG", "Fisch", "Zombie Attack", "Livetopia", "Berry Avenue", "MeepCity", "Clicker Sim", "Strongman Sim"}
+
+for i, nome in ipairs(jogos) do
+    local tab = Window:CreateTab("🎮 "..nome)
+    -- Cada aba dessa deve receber 20 scripts
+end
+
+Rayfield:Notify({Title = "KRONOS CARREGADO", Content = "40 Categorias Prontas!", Duration = 5})
